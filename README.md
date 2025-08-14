@@ -1,6 +1,12 @@
 # arcaldwell
 For my website / portfolio / blog.
 
+# startup:
+
+open docker and start containers
+run php artisan serve
+run npm run dev
+
 # Ubuntu Installation Steps
 
 Step ONE
@@ -22,4 +28,5 @@ Install PHP, Composer, and Laravel
 <
 https://laravel.com/docs/12.x/installation
 >
+
 
