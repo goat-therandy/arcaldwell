@@ -18,5 +18,6 @@ This is mainly so that you'll want to hire me.
 
 
 # API Keys
-You'll want to 
+You'll want to get your own geocode API key here for your .env file: https://geocode.maps.co/. 
+
 
