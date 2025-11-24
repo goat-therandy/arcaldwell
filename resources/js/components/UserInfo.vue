@@ -5,9 +5,9 @@ import type { User, Guest } from '@/types';
 import { computed } from 'vue';
 
 interface Props {
-    user: User;
+    user: User | null;
     showEmail?: boolean;
-    guest: Guest;
+    guest: Guest | null;
 }
 
 const props = withDefaults(defineProps<Props>(), {
