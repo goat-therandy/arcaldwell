@@ -119,7 +119,7 @@ import { Head, Link } from '@inertiajs/vue3';
                 >
 
                 <img 
-                    src="/images/randy_cow.png"
+                    src="https://i.imgur.com/b3KPksF.png"
                     alt="Randy with a cow"
                     class="absolute bottom-0 left-1/2 w-[220px] -translate-x-1/2 lg:w-[438px]"
                     />
