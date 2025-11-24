@@ -3,6 +3,7 @@ import type { Config } from 'ziggy-js';
 
 export interface Auth {
     user: User;
+    guest: Guest;
 }
 
 export interface BreadcrumbItem {
@@ -33,6 +34,12 @@ export interface User {
     email_verified_at: string | null;
     created_at: string;
     updated_at: string;
+}
+
+export interface Guest {
+    id: 0;
+    name: 'Guest';
+    email: '';
 }
 
 export type BreadcrumbItemType = BreadcrumbItem;
