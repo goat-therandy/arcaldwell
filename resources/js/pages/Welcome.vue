@@ -11,7 +11,7 @@ import { Head, Link } from '@inertiajs/vue3';
         <header class="mb-6 w-full max-w-[335px] text-sm not-has-[nav]:hidden lg:max-w-4xl">
             <nav class="flex items-center justify-end gap-4">
                 <Link
-                    v-if="$page.props.auth.user"
+                 v-if="$page.props.auth.user"
                     :href="route('dashboard')"
                     class="inline-block rounded-sm border border-[#19140035] px-5 py-1.5 text-sm leading-normal text-[#1b1b18] hover:border-[#1915014a] dark:border-[#3E3E3A] dark:text-[#EDEDEC] dark:hover:border-[#62605b]"
                 >
@@ -30,6 +30,12 @@ import { Head, Link } from '@inertiajs/vue3';
                     >
                         Register
                     </Link>
+                    <Link
+                        :href="route('dashboard')"
+                        class="inline-block rounded-sm border border-[#19140035] px-5 py-1.5 text-sm leading-normal text-[#1b1b18] hover:border-[#1915014a] dark:border-[#3E3E3A] dark:text-[#EDEDEC] dark:hover:border-[#62605b]"
+                    >
+                        Guest Access
+                    </Link>
                 </template>
             </nav>
         </header>
@@ -41,7 +47,7 @@ import { Head, Link } from '@inertiajs/vue3';
                     <h1 class="mb-1 font-medium">Welcome to Randy's website!</h1>
                     <p class="mb-2 text-[#706f6c] dark:text-[#A1A09A]">
                         This is built off of Laravel's starter kit. <br /> It's currently under construction!
-                        <br />In the meantime, check out this stuff from Laravel:
+                        <br />In the meantime, check out this stuff:
                     </p>
                     <ul class="mb-4 flex flex-col lg:mb-6">
                         <li
@@ -55,13 +61,13 @@ import { Head, Link } from '@inertiajs/vue3';
                                 </span>
                             </span>
                             <span>
-                                Read the
+                                Check out my 
                                 <a
-                                    href="https://laravel.com/docs"
+                                    href="https://www.linkedin.com/in/randy-caldwell-arc/"
                                     target="_blank"
                                     class="ml-1 inline-flex items-center space-x-1 font-medium text-[#f53003] underline underline-offset-4 dark:text-[#FF4433]"
                                 >
-                                    <span>Documentation</span>
+                                    <span>LinkedIn</span>
                                     <svg
                                         width="{10}"
                                         height="{11}"
@@ -86,13 +92,13 @@ import { Head, Link } from '@inertiajs/vue3';
                                 </span>
                             </span>
                             <span>
-                                Watch video tutorials at
+                                Also take a look at my 
                                 <a
-                                    href="https://laracasts.com"
+                                    href="https://github.com/goat-therandy"
                                     target="_blank"
                                     class="ml-1 inline-flex items-center space-x-1 font-medium text-[#f53003] underline underline-offset-4 dark:text-[#FF4433]"
                                 >
-                                    <span>Laracasts</span>
+                                    <span>Github Profile</span>
                                     <svg
                                         width="{10}"
                                         height="{11}"
