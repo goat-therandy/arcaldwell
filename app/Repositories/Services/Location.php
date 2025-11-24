@@ -3,6 +3,7 @@
 namespace App\Repositories\Services;
 
 use App\Models\Services\Location\Location as LocationModel;
+use Illuminate\Support\Facades\Http;
 
 class Location {
 
@@ -49,6 +50,7 @@ class Location {
 			$location = 'New York, NY';
 			$response = Http::get('https://geocode.maps.co/search?q=' . urlencode($location) . '&apikey=' . config('integrations.maps_key'));
 			$response_arr = $response->json();
+            \Log::info($response_arr);
 			$lat = $response_arr[0]['lat'] ?? 0.0;
 			$long = $response_arr[0]['lon'] ?? 0.0;
 			$boundingBox = $response_arr[0]['boundingbox'] ?? [0.0, 0.0, 0.0, 0.0];
