@@ -7,10 +7,12 @@ import {Form} from '@inertiajs/vue3';
 
 interface Props {
     lat_long?: string;
+    forecast?: array<any>;
 }
 
 const props = withDefaults(defineProps<Props>(), {
     lat_long: '',
+    forecast: [],
 });
 
 const form = useForm({
@@ -19,8 +21,8 @@ const form = useForm({
 
 const submit = () => {
     console.log('Submitting form for location:', form.location);
-    let lat_long = form.get(route('weather.location', form.location), {
-    onFinish: () => props.lat_long = lat_long, 
+    props.lat_long = form.get(route('weather.location', form.location), {
+    onFinish: () => form.reset('location'),
     });
 };
 </script>

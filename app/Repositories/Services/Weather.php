@@ -8,74 +8,37 @@ use Illuminate\Support\Facades\Http;
 /**
  * Weather service repository for handling weather-related operations.
  * 
- * This class interacts with the Weather model to perform various weather-related tasks.
- * 
  */
 
 class Weather {
 
+	public function fetchWeatherData($latitude, $longitude){
 
-	//converts location string to lat/long
-	//consider moving this function to a service class if it can be reused elsewhere
-	public function convertLocationToLatLong(string $location): array {
+		$latitude = $this->truncate($latitude, 4);
+		$longitude = $this->truncate($longitude, 4);
 
-		// Initialize the coordinates array with default values
-		// This will be used to store latitude, longitude, and bounding box coordinates
-		// If the location is not found, these values will remain as defaults.
-		// If the location is found, they will be updated with the actual coordinates.
-		$coords_array = [
-			'lat' => 0.0,
-			'lon' => 0.0,
-			'bounding_box' => [0.0, 0.0, 0.0, 0.0]
-		];
-		
-		// For testing purposes, if the location is 'test', use a predefined location
-		// Mainly for use in testing in artisan tinker
-		if ($location == 'test'){
-			$location = 'New York, NY';
-			$response = Http::get('https://geocode.maps.co/search?q=' . urlencode($location) . '&apikey=' . config('integrations.maps_key'));
-			$response_arr = $response->json();
-			$lat = $response_arr[0]['lat'] ?? 0.0;
-			$long = $response_arr[0]['lon'] ?? 0.0;
-			$boundingBox = $response_arr[0]['boundingbox'] ?? [0.0, 0.0, 0.0, 0.0];
+		\Log::info("Fetching weather data for lat: $latitude, lon: $longitude");
 
-			echo("\nLAT = $lat");
-			echo("\nLONG = $long");
-			echo("\nBounding Box = " . implode(', ', $boundingBox));
-		}
+		$response = Http::get("https://api.weather.gov/points/$latitude,$longitude");
 
-		// Make an HTTP GET request to the geocoding API with the provided location
-		// Response is expected to be in JSON format
-		$response = Http::get('https://geocode.maps.co/search?q=' . urlencode($location) . '&apikey=' . config('integrations.maps_key'));
+		if($response->successful()){
 
-		// Check if the response is successful (HTTP status code 200)
-		// If the response is successful, parse the JSON response to extract latitude and longitude
-		// If the response contains 'lat' and 'lon', update the coordinates array with these values
-		// If the response contains 'boundingbox', update the bounding box in the coordinates array
-		if ($response->successful()) {
+			$weather_arr = $response->json();
+			\Log::info('Weather API response: ', $weather_arr);
 
-			$response_arr = $response->json();
-
-			if (isset($response_arr[0]['lat']) && isset($response_arr[0]['lon'])) {
-				$coords_array['lat'] = $response_arr[0]['lat'];
-				$coords_array['lon'] = $response_arr[0]['lon'];
-			}
-
-			if (isset($response_arr[0]['boundingbox'])) {
-				$coords_array['bounding_box'] = $response_arr[0]['boundingbox'];
-			}
-
-			//return the coordinates array with the updated latitude, longitude, and bounding box
-			return $coords_array;
+			return $response->json();
 		} else {
-			// If the response is not successful, return the default coordinates array
-			// This indicates that the location could not be found or there was an error in the request
-			return $coords_array;
+			\Log::info('Weather API request failed: ' . $response->status());
+			return null;
 		}
 
-		//Shoud never reach here, but just in case
-		return $coords_array;
 	}
 
+	protected function truncate($val, $f = 0) {
+    if (($p = strpos($val, '.')) !== false) {
+        $val = floatval(substr($val, 0, $p + 1 + $f));
+    }
+    return $val;
+}
 
 }
