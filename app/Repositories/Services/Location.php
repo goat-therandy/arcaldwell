@@ -2,7 +2,6 @@
 
 namespace App\Repositories\Services;
 
-use App\Models\Services\Location\Location as LocationModel;
 use App\Models\Services\Weather\Location as LocationModel;
 use Illuminate\Support\Facades\Http;
 
