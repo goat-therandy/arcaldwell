@@ -42,7 +42,7 @@ class Location {
 
 
         //check if we have multiple locations for the same city
-        if ($existing_location) {
+        if (!$existing_location->isEmpty()) {
             if(count($existing_location) > 1){
                 //further filter by state or country
                 foreach($existing_location as $loc){

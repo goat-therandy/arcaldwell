@@ -4,6 +4,7 @@ namespace App\Repositories\Services;
 
 use App\Models\Services\Weather\Weather as WeatherModel;
 use Illuminate\Support\Facades\Http;
+use App\Repositories\Services\Location as LocationRepository;
 
 /**
  * Weather service repository for handling weather-related operations.
@@ -12,19 +13,34 @@ use Illuminate\Support\Facades\Http;
 
 class Weather {
 
-	public function fetchWeatherData($latitude, $longitude){
+	public function fetchWeatherData($location){
+
+		$location_repo = new LocationRepository();
+		$coords = $location_repo->convertLocationToLatLong($location);
+		$latitude = $coords['lat'];
+		$longitude = $coords['lon'];
 
 		$latitude = $this->truncate($latitude, 4);
 		$longitude = $this->truncate($longitude, 4);
 
-		\Log::info("Fetching weather data for lat: $latitude, lon: $longitude");
-
+		$url = "https://api.weather.gov/points/$latitude,$longitude";
 		$response = Http::get("https://api.weather.gov/points/$latitude,$longitude");
 
 		if($response->successful()){
 
 			$weather_arr = $response->json();
-			\Log::info('Weather API response: ', $weather_arr);
+			$forecast_url = $weather_arr['properties']['forecast'];
+			$forecast_response = Http::get($forecast_url);
+			
+			if($forecast_response->successful()){
+
+				$forecast = $forecast_response->json();
+				$forecast_data = $forecast['properties']['periods'];
+
+				return $forecast_data;
+			} else {
+				return null;
+			}
 
 			return $response->json();
 		} else {

@@ -1,30 +1,32 @@
 <script setup lang="ts">
 import { Input } from '@/components/ui/input';
 import {Button} from '@/components/ui/button';
-import {useForm} from '@inertiajs/vue3';
+import {useForm, Form} from '@inertiajs/vue3';
 import {Label} from '@/components/ui/label';
-import {Form} from '@inertiajs/vue3';
+import { defineProps } from 'vue';
+import { useRouter } from 'vue-router';
+import router from '@/index'
+import ForecastCard from '@/layouts/Weather/ForecastCard.vue';
 
-interface Props {
-    lat_long?: string;
-    forecast?: array<any>;
-}
-
-const props = withDefaults(defineProps<Props>(), {
-    lat_long: '',
-    forecast: [],
-});
+const props = defineProps<{
+    forecast: any;
+}>();
 
 const form = useForm({
-    location: '',
+    location: ''
 });
 
 const submit = () => {
-    console.log('Submitting form for location:', form.location);
-    props.lat_long = form.get(route('weather.location', form.location), {
-    onFinish: () => form.reset('location'),
+    form.get(route('weather.forecast', form.location), {
+        onFinish: () => { 
+            form.reset('location');
+        }
+        
     });
 };
+
+
+
 </script>
 
 <template>
@@ -44,7 +46,9 @@ const submit = () => {
             Get Weather
         </Button>   
     </div>
-    <div>
-        {{ props.lat_long }}
+    <div v-if="forecast" class="mt-6">
+       <div v-for="item in forecast">
+            <ForecastCard :forecast="item" />
+       </div>
     </div>
 </template>

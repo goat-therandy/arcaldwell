@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\Services\Weather\LocationController;
+use App\Http\Controllers\Services\Weather\WeatherController;
 
 Route::get('/', function () {
     return Inertia::render('Welcome');
@@ -17,6 +18,8 @@ Route::get('weather', function () {
 })->name('weather');
 
 Route::get('weather/location/{location}', [LocationController::class, 'show'])->name('weather.location');
+
+Route::get('weather/data/{location}', [WeatherController::class, 'show'])->name('weather.forecast');
 
 
 
