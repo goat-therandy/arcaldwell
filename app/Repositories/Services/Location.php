@@ -3,6 +3,7 @@
 namespace App\Repositories\Services;
 
 use App\Models\Services\Location\Location as LocationModel;
+use App\Models\Services\Weather\Location as LocationModel;
 use Illuminate\Support\Facades\Http;
 
 class Location {
@@ -33,6 +34,34 @@ class Location {
     //converts location string to lat/long
 	//consider moving this function to a service class if it can be reused elsewhere
 	public function convertLocationToLatLong(string $location): array {
+
+        //if we already have the location stored, return it
+        $location_array = explode(',', $location);
+        $city = trim($location_array[0]);
+        $state_or_country = trim(end($location_array));
+        $existing_location = LocationModel::where('city', $city)->get();
+
+
+        //check if we have multiple locations for the same city
+        if (!$existing_location->isEmpty()) {
+            if(count($existing_location) > 1){
+                //further filter by state or country
+                foreach($existing_location as $loc){
+                    if ($loc->state == $state_or_country || $loc->country == $state_or_country){
+                        $existing_location = $loc;
+                        break;
+                    }
+                }
+            } else {
+                $existing_location = $existing_location->first();
+            }
+
+            return [
+                'lat' => $existing_location->latitude,
+                'lon' => $existing_location->longitude,
+                'bounding_box' => explode(',', $existing_location->boundingbox ?? '0.0,0.0,0.0,0.0')
+            ];
+        }
 
 		// Initialize the coordinates array with default values
 		// This will be used to store latitude, longitude, and bounding box coordinates
@@ -70,6 +99,7 @@ class Location {
 		if ($response->successful()) {
 
 			$response_arr = $response->json();
+            
 
 			if (isset($response_arr[0]['lat']) && isset($response_arr[0]['lon'])) {
 				$coords_array['lat'] = $response_arr[0]['lat'];
@@ -79,6 +109,24 @@ class Location {
 			if (isset($response_arr[0]['boundingbox'])) {
 				$coords_array['bounding_box'] = $response_arr[0]['boundingbox'];
 			}
+
+            if (isset($response_arr[0]['address'])){
+                $address = $response_arr[0]['address'];
+                $city = $address['city'] ?? ($address['town'] ?? ($address['village'] ?? 'Unknown'));
+                $country = $address['country'] ?? null;
+                $state = $address['state'] ?? ($address['region'] ?? null);
+
+                // Save or update the location in the database
+                $this->findOrCreateLocation(
+                    $city,
+                    $coords_array['lat'],
+                    $coords_array['lon'],
+                    implode(',', $coords_array['bounding_box']),
+                    $country,
+                    $state
+                );
+
+            }
 
 			//return the coordinates array with the updated latitude, longitude, and bounding box
 			return $coords_array;

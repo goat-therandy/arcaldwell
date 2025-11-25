@@ -1,10 +1,14 @@
 <?php
 
-namespace App\Models\Services\WeatherController;
+namespace App\Http\Controllers\Services\Weather;
 
 use App\Http\Controllers\Controller;
 use Models\Services\Weather\Weather as WeatherModel;
-use App\Repositories\Services\Weather\Weather as WeatherRepo;
+use App\Repositories\Services\{
+    Weather as WeatherRepo,
+    Location as LocationRepo
+};
+use Inertia\Inertia;
 
 /**
  * This handles user preferences for the weather service.
@@ -14,6 +18,25 @@ use App\Repositories\Services\Weather\Weather as WeatherRepo;
 
 class WeatherController extends Controller{
 
-	
+    protected $weather_repo;
+
+    public function __construct(WeatherRepo $weather_repo){
+        $this->weather_repo = $weather_repo;
+    }
+
+	public function show($location){
+
+        \Log::info("CONTROLLER Fetching weather data for location: $location");
+
+        $forecast = $this->weather_repo->fetchWeatherData($location);
+
+        \Log::info("CONTROLLER Weather data fetched: " . json_encode($forecast));
+        
+        return Inertia::render('Weather', [
+            'forecast' => $forecast
+        ]);
+        
+
+    }
 
 }
