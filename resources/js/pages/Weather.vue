@@ -6,7 +6,7 @@ import {Label} from '@/components/ui/label';
 import { defineProps } from 'vue';
 import { useRouter } from 'vue-router';
 import router from '@/index'
-import ForecastCard from '@/layouts/Weather/ForecastCard.vue';
+import {ForecastCard} from '@/layouts/Weather/ForecastCard.vue';
 
 const props = defineProps<{
     forecast: any;
