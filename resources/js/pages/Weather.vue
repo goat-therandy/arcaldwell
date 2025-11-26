@@ -6,11 +6,13 @@ import {Label} from '@/components/ui/label';
 import { defineProps } from 'vue';
 import { useRouter } from 'vue-router';
 import router from '@/index'
-import ForecastCard from '@/layouts/Weather/ForecastCard.vue';
+import ForecastCard from '@/layouts/weather/ForecastCard.vue';
 
 const props = defineProps<{
     forecast: any;
 }>();
+
+const location_name = '';
 
 const form = useForm({
     location: ''
@@ -19,6 +21,7 @@ const form = useForm({
 const submit = () => {
     form.get(route('weather.forecast', form.location), {
         onFinish: () => { 
+            this.location_name = form.location;
             form.reset('location');
         }
         
@@ -47,6 +50,7 @@ const submit = () => {
         </Button>   
     </div>
     <div v-if="forecast" class="mt-6">
+         <h2 class="text-lg font-semibold mb-2">Weather Forecast for {{location_name}}</h2>
        <div v-for="item in forecast">
             <ForecastCard :forecast="item" />
        </div>
