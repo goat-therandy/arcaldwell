@@ -26,11 +26,7 @@ class WeatherController extends Controller{
 
 	public function show($location){
 
-        \Log::info("CONTROLLER Fetching weather data for location: $location");
-
         $forecast = $this->weather_repo->fetchWeatherData($location);
-
-        \Log::info("CONTROLLER Weather data fetched: " . json_encode($forecast));
         
         return Inertia::render('Weather', [
             'forecast' => $forecast

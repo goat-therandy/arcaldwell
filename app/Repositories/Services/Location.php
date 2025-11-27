@@ -40,9 +40,9 @@ class Location {
         $state_or_country = trim(end($location_array));
         $existing_location = LocationModel::where('city', $city)->get();
 
-
         //check if we have multiple locations for the same city
         if (!$existing_location->isEmpty()) {
+
             if(count($existing_location) > 1){
                 //further filter by state or country
                 foreach($existing_location as $loc){
@@ -89,7 +89,8 @@ class Location {
 
 		// Make an HTTP GET request to the geocoding API with the provided location
 		// Response is expected to be in JSON format
-		$response = Http::get('https://geocode.maps.co/search?q=' . urlencode($location) . '&apikey=' . config('integrations.maps_key'));
+        $url = 'https://geocode.maps.co/search?q=' . urlencode($location) . '&apikey=' . config('integrations.maps_key');
+		$response = Http::get('https://geocode.maps.co/search?q=' . urlencode($location) . '&api_key=' . config('integrations.maps_key'));
 
 		// Check if the response is successful (HTTP status code 200)
 		// If the response is successful, parse the JSON response to extract latitude and longitude
@@ -98,7 +99,6 @@ class Location {
 		if ($response->successful()) {
 
 			$response_arr = $response->json();
-            
 
 			if (isset($response_arr[0]['lat']) && isset($response_arr[0]['lon'])) {
 				$coords_array['lat'] = $response_arr[0]['lat'];

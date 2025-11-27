@@ -36,6 +36,7 @@ class Weather {
 
 				$forecast = $forecast_response->json();
 				$forecast_data = $forecast['properties']['periods'];
+				
 
 				return $forecast_data;
 			} else {
@@ -44,7 +45,6 @@ class Weather {
 
 			return $response->json();
 		} else {
-			\Log::info('Weather API request failed: ' . $response->status());
 			return null;
 		}
 
