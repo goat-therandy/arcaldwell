@@ -1,29 +1,31 @@
 <script setup lang="ts">
 import { Input } from '@/components/ui/input';
 import {Button} from '@/components/ui/button';
-import {useForm, Form} from '@inertiajs/vue3';
+import {useForm} from '@inertiajs/vue3';
 import {Label} from '@/components/ui/label';
-import { defineProps } from 'vue';
+import { defineProps, ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
 import router from '@/index'
 import ForecastCard from '@/layouts/weather/ForecastCard.vue';
 
-const props = defineProps<{
-    forecast: any;
-}>();
 
-
+interface Props {
+    forecast?: any[];
+}
 
 const form = useForm({
-    location: ''
+    location: '',
+});
+
+withDefaults(defineProps<Props>(), {
+    forecast: () => []
 });
 
 const submit = () => {
     form.get(route('weather.forecast', form.location), {
-        onFinish: () => { 
+        onFinish: () => {
             form.reset('location');
         }
-        
     });
 };
 
@@ -43,14 +45,15 @@ const submit = () => {
         id="location"
         v-model="form.location"
         type="text"
-        placeholder="Search for a city, country..." />
-        <Button type="submit" class="mt-4" @click="submit">
+        placeholder="Search for a city, country..."
+        class="w-1/2" />
+        <Button type="submit" class="mt-4 mr-4" @click="submit">
             Get Weather
-        </Button>   
+        </Button>
     </div>
     <div v-if="forecast" class="mt-6">
          <h2 class="text-lg font-semibold mb-2">Weather Forecast</h2>
-       <div v-for="item in forecast">
+       <div v-for="item in forecast" class="border-black w-1/2 bg-cyan-500/50 border-4 border-stone-400 rounded-lg mb-8">
             <ForecastCard :forecast="item" />
        </div>
     </div>
