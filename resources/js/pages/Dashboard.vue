@@ -35,7 +35,18 @@ const breadcrumbs: BreadcrumbItem[] = [
                    </DashboardItem>
                 </div>
                 <div class="relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
-                    <PlaceholderPattern />
+                    <DashboardItem >
+                    <div class="flex flex-col items-center justify-center p-4">
+                         Check out my rudimentary AI-powered chatbot!
+                        <Link
+                        :href="route('chatbot')"
+                        class="inline-block rounded-sm border border-[#19140035] px-5 py-1.5 text-sm leading-normal text-[#1b1b18] hover:border-[#1915014a] dark:border-[#3E3E3A] dark:text-[#EDEDEC] dark:hover:border-[#62605b]"
+                        >
+                            Go to the Chatbot Page.
+                        </Link>
+                       
+                    </div>
+                    </DashboardItem>
                 </div>
                 <div class="relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
                     <PlaceholderPattern />
