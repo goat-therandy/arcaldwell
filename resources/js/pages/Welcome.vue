@@ -27,11 +27,10 @@ import { Head, Link } from '@inertiajs/vue3';
 		<div class="flex columns-2 gap-8 bg-[#363636] pb-12 text-[#f5f5f5] bg-gradient-to-b from-[#363636] to-white pr-4">
 			<div class="pl-4">
 				<img 
-					src="https://i.imgur.com/b3KPksF.png"
+					src="https://i.imgur.com/yDMPfI9.png"
 					alt="Randy with a cow"
 					class="pb-4"
 					/>
-				<p class="italic text-[#363636]">This is me with an Italian cow in July 2025.</p>
 			</div>
 			<div>
 				<p class="pt-4">
