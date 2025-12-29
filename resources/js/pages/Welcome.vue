@@ -77,6 +77,7 @@ import { Head, Link } from '@inertiajs/vue3';
 			</p>
 			<p class="pt-4 pb-4">
 				This is where I work on projects that I think can showcase my skills as a developer.
+				<strong>The site is currently under construction</strong>, but feel free to poke around in the meantime.
 				If you'd like to check out my current projects, please click the <strong>App Dashboard</strong> link in the top left.
 				Or you can skip directly to the apps by clicking one of the links below:
 			</p>
