@@ -24,7 +24,7 @@ import { Head, Link } from '@inertiajs/vue3';
 	<!-- Main body - About me and about this website -->
 	<body>
 		<!-- Picture of me with brief intro -->
-		<div class="flex columns-2 gap-8 bg-[#363636] pb-12 text-[#f5f5f5] bg-gradient-to-b from-[#363636] to-white">
+		<div class="flex columns-2 gap-8 bg-[#363636] pb-12 text-[#f5f5f5] bg-gradient-to-b from-[#363636] to-white pr-4">
 			<div class="pl-4">
 				<img 
 					src="https://i.imgur.com/b3KPksF.png"
@@ -43,7 +43,7 @@ import { Head, Link } from '@inertiajs/vue3';
 			</div>	
 		</div>
 		<!-- About me section with links to other profiles -->
-		<div class="pl-4">
+		<div class="pl-4 pr-4 pb-16">
 			<p class="text-2xl font-bold pt-4">
 				About Me
 			</p>
