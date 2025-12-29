@@ -48,13 +48,12 @@ import { Head, Link } from '@inertiajs/vue3';
 				About Me
 			</p>
 			<p class="pt-4">
-				I'm the father of three sons, currently looking for work as a software developer.
 				I have about 15 years total in various IT roles, most recently as a full stack developer building
 				safety software for private flight departments. In that role, I led the development of several API integrations.
-				Prior to that, I worked as a help desk agent, incident manager, and system administrator.
+				Prior to that, I worked as a help desk agent, incident manager, and finally senior system administrator.
 			</p>
 			<p class="pt-4 pb-4">
-				My hobbies include climbing, writing, reading and watching science fiction, and hiking.
+				I'm the father of three amazing sons. My hobbies include climbing, writing, hiking, kayaking, and science fiction.
 			</p>
 			<div class="pl-4 pt-4 pb-4 font-mono rounded-sm border border-[#19140035] underline underline-offset-4 w-64">
 				<nav>
