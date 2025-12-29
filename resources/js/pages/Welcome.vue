@@ -11,7 +11,7 @@ import { Head, Link } from '@inertiajs/vue3';
 			<nav class="flex justify-start gap-4 object-top-left place-content-start flex-1 p-4">
 				<Link
 					:href="route('dashboard')"
-					class="inline-block rounded-sm border border-[#f5f5f5] px-5 py-1.5 text-sm leading-normal text-[#f5f5f5] hover:border-[#1915014a] dark:border-[#3E3E3A] dark:text-[#EDEDEC] dark:hover:border-[#62605b]"
+					class="inline-block rounded-sm border border-[#f5f5f5] px-5 py-1.5 text-sm leading-normal text-[#f5f5f5] hover:border-[#a3a3a3] dark:border-[#3E3E3A] dark:text-[#EDEDEC] dark:hover:border-[#62605b]"
 				>
 					App Dashboard
 				</Link>
