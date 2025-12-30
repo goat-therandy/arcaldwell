@@ -38,6 +38,10 @@ class User extends Authenticatable
         return $this->hasOne(Weather::class);
     }
 
+	public function blogs(){
+		return $this->hasMany(Blog::class, 'author_id');
+	}
+
     /**
      * Get the attributes that should be cast.
      *

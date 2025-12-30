@@ -6,6 +6,8 @@ use App\Http\Controllers\Services\Weather\LocationController;
 use App\Http\Controllers\Services\Weather\WeatherController;
 use App\Http\Controllers\Services\ChatbotController;
 
+//page routes
+
 Route::get('/', function () {
     return Inertia::render('Welcome');
 })->name('home');
@@ -21,6 +23,8 @@ Route::get('weather', function () {
 Route::get('chatbot', function () {
     return Inertia::render('Chatbot');
 })->name('chatbot');
+
+//api routes
 
 Route::get('weather/location/{location}', [LocationController::class, 'show'])->name('weather.location');
 
