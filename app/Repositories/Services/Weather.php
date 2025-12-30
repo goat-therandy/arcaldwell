@@ -20,22 +20,35 @@ class Weather {
 		$latitude = $coords['lat'];
 		$longitude = $coords['lon'];
 
+		/**
+		 * Each entry needs an id to pass eslinter tests.
+		 * So we will create an id based on the weather.gov id + a counter for each period
+		 * to make the ids unique.
+		 */
+		$id = "";
+		$period_counter = 0;
+
 		$latitude = $this->truncate($latitude, 4);
 		$longitude = $this->truncate($longitude, 4);
 
-		$url = "https://api.weather.gov/points/$latitude,$longitude";
 		$response = Http::get("https://api.weather.gov/points/$latitude,$longitude");
 
 		if($response->successful()){
 
 			$weather_arr = $response->json();
 			$forecast_url = $weather_arr['properties']['forecast'];
+			$id = $weather_arr['id'];
 			$forecast_response = Http::get($forecast_url);
 			
 			if($forecast_response->successful()){
 
 				$forecast = $forecast_response->json();
 				$forecast_data = $forecast['properties']['periods'];
+				
+				foreach($forecast_data as $period){
+					$period['id'] = $id . "-" . $period_counter;
+					$period_counter++;
+				}
 				
 
 				return $forecast_data;
@@ -58,3 +71,6 @@ class Weather {
 }
 
 }
+
+
+

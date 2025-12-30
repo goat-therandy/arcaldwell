@@ -51,14 +51,14 @@ const breadcrumbs: BreadcrumbItem[] = [
 				v-model="form.prompt"
 				type="text"
 				placeholder="Ask me anything..."
-				class="w-1/2" />
+				class="w-4/5" />
 				<Button type="submit" class="mt-4 mr-4" @click="submit">
 					Send
 				</Button>
 			</div>
 			<div v-if="prompt_reply">
 				<h2 class="text-lg font-semibold mb-2">Chatbot Reply</h2>
-				<div class="border-black w-1/2 bg-green-500/50 border-4 border-stone-400 rounded-lg mb-8">
+				<div class="border-black w-4/5 bg-green-500/50 border-4 border-stone-400 rounded-lg mb-8">
 						<Chatbot :prompt_reply="prompt_reply" />
 				</div>
 			</div>

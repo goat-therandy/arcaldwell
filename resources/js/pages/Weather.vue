@@ -62,9 +62,9 @@ const breadcrumbs: BreadcrumbItem[] = [
 			</div>
 			<div v-if="forecast" class="mt-6">
 				<h2 class="text-lg font-semibold mb-2">Weather Forecast</h2>
-			<div v-for="item in forecast" class="border-black w-1/2 bg-cyan-500/50 border-4 border-stone-400 rounded-lg mb-8">
+				<div v-for="item in forecast" :key="item.id" class="border-black w-1/2 bg-cyan-500/50 border-4 border-stone-400 rounded-lg mb-8">
 					<ForecastCard :forecast="item" />
-			</div>
+				</div>
 			</div>
 		</div>
 	</AppLayout>
